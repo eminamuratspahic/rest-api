@@ -1,0 +1,29 @@
+GET http://localhost:3000/api/pokemons/
+
+###
+POST http://localhost:3000/api/pokemons
+Content-Type: application/json
+
+{
+		"specie": "Seed Pokémon",
+		"height": 2,
+		"description":
+			"Venusaur is a Grass/Poison type Pokémon introduced in Generation 1. It is known as the Seed Pokémon.\nVenusaur has a Mega Evolution, available from X & Y onwards.",
+		"hp": 80 
+}
+
+### 
+PUT http://localhost:3000/api/pokemons/453af670-0328-11ec-bbc9-793874fbf22c
+Content-Type: application/json
+
+{
+		"specie": "emina",
+		"height": 1222,
+		"description":
+			"Venusaur nVenusaur has a Mega Evolution, available from X & Y onwards.",
+		"hp": 10
+
+}
+
+###
+DELETE http://localhost:3000/api/pokemons/44d2bec0-0328-11ec-bbc9-793874fbf22c
