@@ -1,7 +1,20 @@
 const { v1: uuidv1 } = require('uuid');
-const { Request, Response, NextFunction, request } = require('express');
+const { Request, Response, NextFunction } = require('express');
+const fs = require('fs');
 
-let pokemons = [];
+const pokemons = [];
+
+const saveData = (pokemons) => {
+	const finished = (error) => {
+		if (error) {
+			console.error(error);
+			return;
+		}
+	};
+
+	const jsonData = JSON.stringify(pokemons, null, 2);
+	fs.appendFile('pokemons.json', jsonData, finished);
+};
 
 /**
  * Responds with all the plants from DB
@@ -10,8 +23,12 @@ let pokemons = [];
  * @param {NextFunction} next 
  */
 function getPokemons(req, res, next) {
-	res.json(pokemons);
-};
+	//const jsonData = JSON.stringify(pokemons, null, 2);
+
+	const data = fs.readFileSync('pokemons.json', 'utf-8');
+	console.log(data)
+	res.json(data)
+}
 
 /**
  * Responds with the requested plant or nothing if not found
@@ -33,8 +50,9 @@ const getOnePokemon = (req, res, next) => {
 function addPokemon(req, res, next) {
 	const pokemon = { ...req.body, id: uuidv1() };
 	pokemons.push(pokemon);
-	res.json(pokemon);
-};
+	saveData(pokemons);
+	res.json(pokemons);
+}
 
 /**
  * Responds with all the plants from DB
@@ -55,7 +73,7 @@ function editPokemon(req, res, next) {
 		pokemon.hp = req.body.hp;
 		res.status(200).json(pokemon);
 	}
-};
+}
 
 /**
  * Responds with all the plants from DB
@@ -73,7 +91,7 @@ function deletePokemon(req, res, next) {
 	} else {
 		res.status(404).json(deleted);
 	}
-};
+}
 
 module.exports = {
 	getPokemons,
