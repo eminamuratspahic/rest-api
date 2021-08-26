@@ -2,7 +2,7 @@ GET http://localhost:3000/api/pokemons/
 
 ###
 
-GET http://localhost:3000/api/pokemons/053f0020-0373-11ec-9e60-39901b8efd5b
+GET http://localhost:3000/api/pokemons/64134040-06a0-11ec-98a1-29bfeb9ee5f9
 
 
 ###
@@ -18,7 +18,7 @@ Content-Type: application/json
 }
 
 ### 
-PUT http://localhost:3000/api/pokemons/453af670-0328-11ec-bbc9-793874fbf22c
+PUT http://localhost:3000/api/pokemons/
 Content-Type: application/json
 
 {
@@ -31,4 +31,4 @@ Content-Type: application/json
 }
 
 ###
-DELETE http://localhost:3000/api/pokemons/0823a980-0373-11ec-9f40-e35e16e30274
+DELETE http://localhost:3000/api/pokemons/637fd9e0-06a0-11ec-806e-d3f285f9f859

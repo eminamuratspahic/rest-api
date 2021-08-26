@@ -1,20 +1,8 @@
 const { v1: uuidv1 } = require('uuid');
-const { Request, Response, NextFunction } = require('express');
+const { Request, Response, NextFunction, request } = require('express');
 const fs = require('fs');
 
-const pokemons = [];
-
-const saveData = (pokemons) => {
-	const finished = (error) => {
-		if (error) {
-			console.error(error);
-			return;
-		}
-	};
-
-	const jsonData = JSON.stringify(pokemons, null, 2);
-	fs.appendFile('pokemons.json', jsonData, finished);
-};
+let pokemons = [];
 
 /**
  * Responds with all the plants from DB
@@ -23,11 +11,13 @@ const saveData = (pokemons) => {
  * @param {NextFunction} next 
  */
 function getPokemons(req, res, next) {
-	//const jsonData = JSON.stringify(pokemons, null, 2);
-
-	const data = fs.readFileSync('pokemons.json', 'utf-8');
-	console.log(data)
-	res.json(data)
+	fs.readFile('pokemons.json', 'utf-8', (err, data) => {
+		if (err) {
+			res.status(404);
+		}
+		const dataArray = JSON.parse(data);
+		res.json(dataArray);
+	});
 }
 
 /**
@@ -49,9 +39,22 @@ const getOnePokemon = (req, res, next) => {
 
 function addPokemon(req, res, next) {
 	const pokemon = { ...req.body, id: uuidv1() };
-	pokemons.push(pokemon);
-	saveData(pokemons);
-	res.json(pokemons);
+
+	fs.readFile('pokemons.json', 'utf-8', (err, data) => {
+		if (err) {
+			res.status(500).json('Fel');
+			return;
+		}
+		const dataArray = JSON.parse(data);
+		dataArray.push(pokemon);
+		fs.writeFile('pokemons.json', JSON.stringify(dataArray, null, 2), (err) => {
+			if (err) {
+				res.status(500).json('Fel');
+				return;
+			}
+			res.status(201).json(pokemon);
+		});
+	});
 }
 
 /**
@@ -83,20 +86,36 @@ function editPokemon(req, res, next) {
  */
 function deletePokemon(req, res, next) {
 	const { id } = req.params;
+	const pokemon = { ...req.body };
 
-	const deleted = pokemons.find((pokemon) => pokemon.id == id);
-	if (deleted) {
-		pokemons = pokemons.filter((pokemon) => pokemon.id !== id);
-		res.status(200).json(deleted);
-	} else {
-		res.status(404).json(deleted);
-	}
+	fs.readFile('pokemons.json', 'utf-8', (err, data) => {
+		if (err) {
+			res.status(500).json('fel');
+			return;
+		}
+		let dataArray = JSON.parse(data);
+		const deleted = dataArray.find((pokemon) => pokemon.id == id);
+		if (deleted) {
+			dataArray = dataArray.filter((pokemon) => pokemon.id !== id);
+			res.status(200).json(deleted);
+		} else {
+			res.status(404).json(deleted);
+		}
+		//dataArray.push(pokemon);
+		fs.writeFile('pokemons.json', JSON.stringify(dataArray, null, 2), (err) => {
+			if (err) {
+				res.status(500).json('Fel');
+				return;
+			}
+			res.status(201).json(pokemon);
+		});
+	});
 }
 
 module.exports = {
-	getPokemons,
+	getPokemons, //Klar
 	getOnePokemon,
-	addPokemon,
+	addPokemon, //Klar
 	editPokemon,
-	deletePokemon
+	deletePokemon //Klar
 };
