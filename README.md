@@ -20,6 +20,9 @@ VG-krav
 
 # För att köra programmet:
 Skriv npm start för att köra programmet
+För att få upp i webbläsaren: 
+http://localhost:3000/api/pokemons/
+
 
 # Länk till Github
 https://github.com/eminamuratspahic/rest-api

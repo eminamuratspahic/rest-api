@@ -29,7 +29,7 @@ const getOnePokemon = (req, res, next) => {
 
 	fs.readFile('pokemons.json', 'utf-8', (err, data) => {
 		if (err) {
-			res.status(500).json('fel');
+			res.status(500).json('Couldnt read file');
 			return;
 		}
 		const dataArray = JSON.parse(data);
@@ -48,14 +48,14 @@ function addPokemon(req, res, next) {
 
 	fs.readFile('pokemons.json', 'utf-8', (err, data) => {
 		if (err) {
-			res.status(500).json('Fel');
+			res.status(500).json('Couldnt read file');
 			return;
 		}
 		const dataArray = JSON.parse(data);
 		dataArray.push(pokemon);
 		fs.writeFile('pokemons.json', JSON.stringify(dataArray, null, 2), (err) => {
 			if (err) {
-				res.status(500).json('Fel');
+				res.status(500).json('Couldnt write file');
 				return;
 			}
 			res.status(201).json(pokemon);
@@ -74,7 +74,7 @@ function editPokemon(req, res, next) {
 
 	fs.readFile('pokemons.json', 'utf-8', (err, data) => {
 		if (err) {
-			res.status(500).json('fel');
+			res.status(500).json('Couldnt read file');
 			return;
 		}
 		let dataArray = JSON.parse(data);
@@ -86,11 +86,10 @@ function editPokemon(req, res, next) {
 			pokemon.height = req.body.height;
 			pokemon.description = req.body.description;
 			pokemon.hp = req.body.hp;
-			res.status(200).json(pokemon);
 		}
 		fs.writeFile('pokemons.json', JSON.stringify(dataArray, null, 2), (err) => {
 			if (err) {
-				res.status(500).json('fel');
+				res.status(500).json('Couldnt write file');
 				return;
 			}
 			res.status(201).json(pokemon);
@@ -110,23 +109,21 @@ function deletePokemon(req, res, next) {
 
 	fs.readFile('pokemons.json', 'utf-8', (err, data) => {
 		if (err) {
-			res.status(500).json('fel');
+			res.status(500).json('Couldnt read file');
 			return;
 		}
 		let dataArray = JSON.parse(data);
 		const deleted = dataArray.find((pokemon) => pokemon.id == id);
-		if (deleted) {
-			dataArray = dataArray.filter((pokemon) => pokemon.id !== id);
-			res.status(200).json(deleted);
+		if (!deleted) {
+			res.status(404).json(`Pokemon with ${id} was not found`);
 		} else {
-			res.status(404).json(deleted);
+			dataArray = dataArray.filter((pokemon) => pokemon.id !== id);
 		}
 		fs.writeFile('pokemons.json', JSON.stringify(dataArray, null, 2), (err) => {
 			if (err) {
-				res.status(500).json('Fel');
+				res.status(500).json('Couldnt write file');
 				return;
 			}
-			res.status(201).json(pokemon);
 		});
 	});
 }

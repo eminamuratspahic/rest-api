@@ -2,7 +2,8 @@ GET http://localhost:3000/api/pokemons/
 
 ###
 
-GET http://localhost:3000/api/pokemons/0129fef0-06a6-11ec-8b1c-b1423e4fb1fe
+GET http://localhost:3000/api/pokemons/b07c82d0-0901-11ec-9057-83595f40ff2c
+
 
 
 ###
@@ -18,11 +19,11 @@ Content-Type: application/json
 }
 
 ### 
-PUT http://localhost:3000/api/pokemons/847f7200-08cf-11ec-80ef-af2f52092443
+PUT http://localhost:3000/api/pokemons/b07c82d0-0901-11ec-9057-83595f40ff2c
 Content-Type: application/json
 
 {
-		"specie": "Pikachu",
+		"specie": "Pikachuu",
 		"height": 12,
 		"description":
 			"Pikachu that can generate powerful electricity have cheek sacs that are extra soft and super stretchy. When it smashes its opponents with its bolt- shaped tail, it delivers a surge of electricity equivalent to a lightning strike. Its Gigantamax power expanded, forming its supersized body and towering tail.",
@@ -31,4 +32,4 @@ Content-Type: application/json
 }
 
 ###
-DELETE http://localhost:3000/api/pokemons/2ab5f3b0-08d0-11ec-8ff0-17a2b27494ed
+DELETE http://localhost:3000/api/pokemons/b07c82d0-0901-11ec-9057-83595f40ff2c
