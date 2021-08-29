@@ -20,3 +20,6 @@ VG-krav
 
 # För att köra programmet:
 Skriv npm start för att köra programmet
+
+# Länk till Github
+https://github.com/eminamuratspahic/rest-api
