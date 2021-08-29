@@ -2,7 +2,7 @@ GET http://localhost:3000/api/pokemons/
 
 ###
 
-GET http://localhost:3000/api/pokemons/64134040-06a0-11ec-98a1-29bfeb9ee5f9
+GET http://localhost:3000/api/pokemons/0129fef0-06a6-11ec-8b1c-b1423e4fb1fe
 
 
 ###
@@ -10,25 +10,25 @@ POST http://localhost:3000/api/pokemons
 Content-Type: application/json
 
 {
-		"specie": "raderas",
-		"height": 2,
+		"specie": "Pikachu",
+		"height": 12,
 		"description":
-			"Venusaur is a Grass/Poison type Pokémon introduced in Generation 1. It is known as the Seed Pokémon.\nVenusaur has a Mega Evolution, available from X & Y onwards.",
-		"hp": 80 
+			"Pikachu that can generate powerful electricity have cheek sacs that are extra soft and super stretchy. When it smashes its opponents with its bolt- shaped tail, it delivers a surge of electricity equivalent to a lightning strike. Its Gigantamax power expanded, forming its supersized body and towering tail.",
+		"hp": 190
 }
 
 ### 
-PUT http://localhost:3000/api/pokemons/
+PUT http://localhost:3000/api/pokemons/847f7200-08cf-11ec-80ef-af2f52092443
 Content-Type: application/json
 
 {
-		"specie": "emina",
-		"height": 1222,
+		"specie": "Pikachu",
+		"height": 12,
 		"description":
-			"Venusaur nVenusaur has a Mega Evolution, available from X & Y onwards.",
-		"hp": 10
+			"Pikachu that can generate powerful electricity have cheek sacs that are extra soft and super stretchy. When it smashes its opponents with its bolt- shaped tail, it delivers a surge of electricity equivalent to a lightning strike. Its Gigantamax power expanded, forming its supersized body and towering tail.",
+		"hp": 190
 
 }
 
 ###
-DELETE http://localhost:3000/api/pokemons/637fd9e0-06a0-11ec-806e-d3f285f9f859
+DELETE http://localhost:3000/api/pokemons/2ab5f3b0-08d0-11ec-8ff0-17a2b27494ed

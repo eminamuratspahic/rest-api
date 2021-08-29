@@ -1,11 +1,9 @@
 const { v1: uuidv1 } = require('uuid');
-const { Request, Response, NextFunction, request } = require('express');
+const { Request, Response, NextFunction, } = require('express');
 const fs = require('fs');
 
-let pokemons = [];
-
 /**
- * Responds with all the plants from DB
+ * Responds with all the pokemons from DB
  * @param {Request} req 
  * @param {Response} res 
  * @param {NextFunction} next 
@@ -21,7 +19,7 @@ function getPokemons(req, res, next) {
 }
 
 /**
- * Responds with the requested plant or nothing if not found
+ * Responds with the requested pokemon or nothing if not found
  * @param {Request} req 
  * @param {Response} res 
  * @param {NextFunction} next 
@@ -29,12 +27,20 @@ function getPokemons(req, res, next) {
 const getOnePokemon = (req, res, next) => {
 	const { id } = req.params;
 
-	const pokemon = pokemons.find((pokemon) => pokemon.id == id);
-	if (!pokemon) {
-		res.status(404).json(`Pokemon with ${id} was not found`);
-	} else {
-		res.status(200).json(pokemon);
-	}
+	fs.readFile('pokemons.json', 'utf-8', (err, data) => {
+		if (err) {
+			res.status(500).json('fel');
+			return;
+		}
+		const dataArray = JSON.parse(data);
+		const findIndex = dataArray.find((pokemon) => pokemon.id == id);
+		if (!findIndex) {
+			console.log(findIndex);
+			res.status(404).json(`Pokemon with ${id} was not found`);
+		} else {
+			res.status(200).json(findIndex);
+		}
+	});
 };
 
 function addPokemon(req, res, next) {
@@ -58,7 +64,7 @@ function addPokemon(req, res, next) {
 }
 
 /**
- * Responds with all the plants from DB
+ * Responds with all the pokemons from DB
  * @param {Request} req 
  * @param {Response} res 
  * @param {NextFunction} next 
@@ -66,20 +72,34 @@ function addPokemon(req, res, next) {
 function editPokemon(req, res, next) {
 	const { id } = req.params;
 
-	const pokemon = pokemons.find((pokemon) => pokemon.id == id);
-	if (!pokemon) {
-		res.status(404).json(`Pokemon with ${id} was not found`);
-	} else {
-		pokemon.specie = req.body.specie;
-		pokemon.height = req.body.height;
-		pokemon.description = req.body.description;
-		pokemon.hp = req.body.hp;
-		res.status(200).json(pokemon);
-	}
+	fs.readFile('pokemons.json', 'utf-8', (err, data) => {
+		if (err) {
+			res.status(500).json('fel');
+			return;
+		}
+		let dataArray = JSON.parse(data);
+		const pokemon = dataArray.find((pokemon) => pokemon.id == id);
+		if (!pokemon) {
+			res.status(404).json(`Pokemon with ${id} was not found`);
+		} else {
+			pokemon.specie = req.body.specie;
+			pokemon.height = req.body.height;
+			pokemon.description = req.body.description;
+			pokemon.hp = req.body.hp;
+			res.status(200).json(pokemon);
+		}
+		fs.writeFile('pokemons.json', JSON.stringify(dataArray, null, 2), (err) => {
+			if (err) {
+				res.status(500).json('fel');
+				return;
+			}
+			res.status(201).json(pokemon);
+		});
+	});
 }
 
 /**
- * Responds with all the plants from DB
+ * Responds with deleting pokemon from DB
  * @param {Request} req 
  * @param {Response} res 
  * @param {NextFunction} next 
@@ -101,7 +121,6 @@ function deletePokemon(req, res, next) {
 		} else {
 			res.status(404).json(deleted);
 		}
-		//dataArray.push(pokemon);
 		fs.writeFile('pokemons.json', JSON.stringify(dataArray, null, 2), (err) => {
 			if (err) {
 				res.status(500).json('Fel');
@@ -113,9 +132,9 @@ function deletePokemon(req, res, next) {
 }
 
 module.exports = {
-	getPokemons, //Klar
+	getPokemons,
 	getOnePokemon,
-	addPokemon, //Klar
+	addPokemon,
 	editPokemon,
-	deletePokemon //Klar
+	deletePokemon
 };

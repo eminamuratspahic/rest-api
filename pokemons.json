@@ -1,16 +1,9 @@
 [
   {
-    "specie": "raderas",
-    "height": 2,
-    "description": "Venusaur is a Grass/Poison type Pokémon introduced in Generation 1. It is known as the Seed Pokémon.\nVenusaur has a Mega Evolution, available from X & Y onwards.",
-    "hp": 80,
-    "id": "64134040-06a0-11ec-98a1-29bfeb9ee5f9"
-  },
-  {
-    "specie": "raderas",
-    "height": 2,
-    "description": "Venusaur is a Grass/Poison type Pokémon introduced in Generation 1. It is known as the Seed Pokémon.\nVenusaur has a Mega Evolution, available from X & Y onwards.",
-    "hp": 80,
-    "id": "f9984510-06a1-11ec-881c-8b2fb2d30b11"
+    "specie": "Pikachu",
+    "height": 12,
+    "description": "Pikachu that can generate powerful electricity have cheek sacs that are extra soft and super stretchy. When it smashes its opponents with its bolt- shaped tail, it delivers a surge of electricity equivalent to a lightning strike. Its Gigantamax power expanded, forming its supersized body and towering tail.",
+    "hp": 190,
+    "id": "3af35c90-08d0-11ec-8f13-8fa8e1741a57"
   }
 ]
